@@ -21,6 +21,16 @@ class TestBilletera(unittest.TestCase):
     def testConsultarSaldo(self):
         b1 = BilleteraElectronica(1000, "Pepe", "Juarez", 24222691, 1532)
         self.assertEqual(b1.consultarSaldo(), 0.0)
+        
+    def testCrearRecarga(self):   
+        Recarga(22.4, 2015, 5, 5, "Comedor de Mys") 
+        
+    def testRevisarRecarga(self):
+        b1 = BilleteraElectronica(11223, "Pedro", "Rondon", 25674667, 54321)
+        recarga = Recarga(65.4, 2015, 6, 4, "Comedor de Estudiantes")
+        resp = b1.saldo + recarga.monto
+        self.assertEqual(b1.recargar(recarga), resp)
+            
 
 
 if __name__ == "__main__":

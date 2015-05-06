@@ -5,6 +5,7 @@ Created on 6/5/2015
          Susana Rodriguez  11-10893
          Mathieu De Valery 10-10193
 '''
+from recarga import *
  
 class BilleteraElectronica():
     ''' Billetera electronica para realizar consumos via internet. '''
@@ -33,4 +34,15 @@ class BilleteraElectronica():
         
         '''
         
+        return self.saldo
+    
+    def recargar(self, recarga):
+        ''' (BilleteraElectronica, Recarga) -> int 
+        
+        Aumenta el saldo por el monto de la recarga.
+        
+        '''
+        
+        self.saldo += recarga.monto
+        self.fecha_ultMovimiento = recarga.fecha
         return self.saldo
