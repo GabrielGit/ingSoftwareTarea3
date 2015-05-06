@@ -25,3 +25,12 @@ class BilleteraElectronica():
         self.pin = pin 
         self.saldo = 0.0
         self.fecha_ultMovimiento = None
+        
+    def consultarSaldo(self):
+        ''' (BilleteraElectronica) -> int
+        
+        Devuelve el saldo con el que cuenta la billetera.
+        
+        '''
+        
+        return self.saldo
