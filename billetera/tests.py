@@ -7,9 +7,12 @@ Created on 6/5/2015
 '''
 import unittest
 from billetera import *
+from xmlrpc.client import MAXINT
 
 class TestBilletera(unittest.TestCase):
 
+    # Casos de pruebas realizado a traves de la tecnica de TDD
+    
     #Prueba interior
     def testInit(self):
         BilleteraElectronica(11223, "Pepe", "Juarez", 25893464, 12345)
@@ -48,19 +51,19 @@ class TestBilletera(unittest.TestCase):
         respuesta = b1.saldo - consumo.monto
         self.assertEqual(b1.consumir(consumo, 23456), respuesta)
         
-    # Apellidos con Acentos
+    # Prueba interior apellidos con Acentos
     def testApellidosAcentos(self):
         BilleteraElectronica(11980,'Ana','Pérez',20394234,1234)
         
-    # Apellidos con Ñ
+    # Prueba interior apellidos con Ñ
     def testApellidosEnie(self):
         BilleteraElectronica(22341,'Santiago','Patiño',20654745,2341)
         
-    # Apellidos con dieresis
+    # Prueba interior apellidos con dieresis
     def testApellidosDieresis(self):
         BilleteraElectronica(37897,'Luisa','Ungüento', 2133461, 38917)
     
-    # Apellidos con guion
+    # Prueba interior apellidos con guion
     def testApellidosGuion(self):
         BilleteraElectronica(42435,'morris','Iglesias-Monedero',4678039, 34213)
         
@@ -75,6 +78,13 @@ class TestBilletera(unittest.TestCase):
         
                      
 
+    #Prueba frontera
+    def testRecargaMaxima(self):
+        b1 = BilleteraElectronica(9876, 'Maria', 'Román', 20287352, 2760)
+        recarga2 = Recarga(MAXINT, 2015, 2, 28, 'Taquilla Virtual')
+        b1.recargar(recarga2)
+        self.assertEqual(b1.saldo, MAXINT)
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
