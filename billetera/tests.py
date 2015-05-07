@@ -71,7 +71,9 @@ class TestBilletera(unittest.TestCase):
         b1.recargar(recarga2)
         consumo2 = Consumos(95.8, 2015, 3, 4, "Estacionamiento C.C. Metrocenter")
         b1.consumir(consumo2, 2760)
-        self.assertEqual(b1.saldo, 0.0)                    
+        self.assertEqual(b1.saldo, 0.0)       
+        
+                     
 
 
 if __name__ == "__main__":
