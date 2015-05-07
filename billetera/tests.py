@@ -55,13 +55,14 @@ class TestBilletera(unittest.TestCase):
     # Apellidos con Ñ
     def testApellidosEnie(self):
         BilleteraElectronica(22341,'Santiago','Patiño',20654745,2341)
+        
     # Apellidos con dieresis
     def testApellidosDieresis(self):
         BilleteraElectronica(37897,'Luisa','Ungüento',2133461,38917)
+    
     # Apellidos con guion
     def testApellidosGuion(self):
         BilleteraElectronica(42435,'morris','Iglesias-Monedero',4678039, 34213)
-    # Al debitar la cuenta, el saldo queda en cero (monto a debitar=saldo disponible)
             
 
 
