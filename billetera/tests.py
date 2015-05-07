@@ -84,6 +84,7 @@ class TestBilletera(unittest.TestCase):
         recarga2 = Recarga(MAXINT, 2015, 2, 28, 'Taquilla Virtual')
         b1.recargar(recarga2)
         self.assertEqual(b1.saldo, MAXINT)
+
         
 
 if __name__ == "__main__":
