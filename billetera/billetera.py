@@ -64,7 +64,7 @@ class BilleteraElectronica():
         if (recarga.monto < 0.0):
             raise Exception("No está permitido hacer recargas de montos negativos.")
         
-        elif not isinstance(recarga.monto,float):
+        elif not (isinstance(recarga.monto,float) or isinstance(recarga.monto,int)) :
            raise Exception ('La recarga solo admite valores numericos')
         
         
@@ -88,7 +88,7 @@ class BilleteraElectronica():
         elif (self.saldo < consumo.monto):
             raise Exception("Su saldo es insuficiente para realizar este consumo.")
         
-        elif not isinstance(consumo.monto,float):
+        elif not (isinstance(consumo.monto,float)or isinstance(consumo.monto,int)) :
             raise Exception('El consumo solo admite valores numericos')
             
         else:

@@ -139,13 +139,6 @@ class TestBilletera(unittest.TestCase):
     # Enriqueciendo la suite de pruebas
 
     #Prueba frontera
-    def testRecargaMaxima(self):
-        b1 = BilleteraElectronica(9876, 'Maria', 'Román', 20287352, 2760)
-        recarga2 = Recarga(sys.float_info.max, 2015, 2, 28, 'Taquilla Virtual')
-        b1.recargar(recarga2)
-        self.assertEqual(b1.saldo, sys.float_info.max)
-
-    #Prueba frontera
     def testMinimoConsumo(self):
         b1 = BilleteraElectronica(9876, 'Maria', 'Román', 20287352, 2760)
         recarga2 = Recarga(20.0, 2015, 2, 28, 'Taquilla Virtual')
@@ -154,20 +147,65 @@ class TestBilletera(unittest.TestCase):
         resp = b1.saldo - consumo.monto
         b1.consumir(consumo,2760)
         self.assertEqual(b1.saldo, resp)
+        
+    #Prueba frontera
+    def testMaximoConsumoDecimal(self):
+        b1 = BilleteraElectronica(9565, 'Ana', 'Anaco', 24287498, 28197)
+        recarga = Recarga(MAXINT, 2015, 2, 6, 'Mater Salvatoris') 
+        b1.recargar(recarga)
+        consumo = Consumos(MAXINT, 2015, 2, 3, 'Acuario')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 28197)
+        self.assertEqual(b1.saldo, resp)
+
+    #Prueba frontera
+    def testMaximoConsumoDecimal(self):
+        b1 = BilleteraElectronica(9565, 'Ana', 'Anaco', 24287498, 28197)
+        recarga = Recarga(sys.float_info.max, 2015, 2, 6, 'Mater Salvatoris') 
+        b1.recargar(recarga)
+        consumo = Consumos(sys.float_info.max, 2015, 2, 3, 'Acuario')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 28197)
+        self.assertEqual(b1.saldo, resp)
+        
+    #Prueba frontera
+    def testMinimoConsumoDecimal(self):
+        b1 = BilleteraElectronica(9565, 'Ana', 'Anaco', 24287498, 28197)
+        recarga = Recarga(sys.float_info.min, 2015, 2, 6, 'Mater Salvatoris') 
+        b1.recargar(recarga)
+        consumo = Consumos(sys.float_info.min, 2015, 2, 3, 'Acuario')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 28197)
+        self.assertEqual(b1.saldo, resp)
+         
+    #Prueba frontera        
+    def testRecargaMaxima(self):
+        b1 = BilleteraElectronica(9876, 'Maria', 'Román', 20287352, 2760)
+        recarga2 = Recarga(MAXINT, 2015, 2, 28, 'Taquilla Virtual')
+        b1.recargar(recarga2)
+        self.assertEqual(b1.saldo, MAXINT)
     
     #Prueba frontera    
     def testMinimaRecarga(self):
         b1 = BilleteraElectronica(9565, 'Jose', 'Duarte', 23456789, 2897)
-        recarga = Recarga(0.0, 2015, 2, 6, 'La Salle')
+        recarga = Recarga(0, 2015, 2, 6, 'La Salle')
         b1.recargar(recarga)
         resp = b1.saldo + recarga.monto
         self.assertEqual(b1.saldo, resp)
-        
+    
+    #Prueba frontera   
     def testRecargaMaximaDecimal(self):
         b1 = BilleteraElectronica(9565, 'Jose', 'Duarte', 23456789, 2897)
         recarga = Recarga(sys.float_info.max, 2015, 2, 6, 'La Salle') 
         b1.recargar(recarga)
         self.assertEqual(b1.saldo, sys.float_info.max)
+        
+    #Prueba frontera
+    def testRecargaMinimaDecimal(self):
+        b1 = BilleteraElectronica(9565, 'Jose', 'Anaco', 24287498, 28197)
+        recarga = Recarga(sys.float_info.min, 2015, 2, 6, 'Mater Salvatoris') 
+        b1.recargar(recarga)
+        self.assertEqual(b1.saldo, sys.float_info.min)
         
         
         
