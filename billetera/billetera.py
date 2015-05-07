@@ -26,7 +26,18 @@ class BilleteraElectronica():
         self.ci = ci
         self.pin = pin 
         self.saldo = 0.0
-        self.fecha_ultMovimiento = None
+        
+        if not isinstance(ci,int):
+            raise Exception ('La cedula solo admite valores numericos')
+        
+        elif (self.nombre == ''):
+            raise Exception ('El nombre no puede ser un string vacio')
+        
+        elif (self.apellido == ''):
+            raise Exception ('El apellido no puede ser un string vacio')
+        
+        elif not isinstance(pin,int):
+            raise Exception ('El pin solo admite enteros')
         
     def consultarSaldo(self):
         ''' (BilleteraElectronica) -> int
