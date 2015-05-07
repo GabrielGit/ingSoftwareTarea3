@@ -1,8 +1,8 @@
 '''
 Created on 6/5/2015
 
-@author: Gabriel Iglesias  11-10476
-         Susana Rodriguez  11-10893
+@author: Gabriel Iglesias  11-10476.
+         Susana Rodriguez  11-10893.
          Mathieu De Valery 10-10193.
 '''
 import unittest
