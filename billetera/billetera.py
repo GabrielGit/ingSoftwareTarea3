@@ -6,6 +6,7 @@ Created on 6/5/2015
          Mathieu De Valery 10-10193
 '''
 from recarga import *
+from consumos import *
  
 class BilleteraElectronica():
     ''' Billetera electronica para realizar consumos via internet. '''
@@ -45,4 +46,24 @@ class BilleteraElectronica():
         
         self.saldo += recarga.monto
         self.fecha_ultMovimiento = recarga.fecha
+        return self.saldo
+    
+    def consumir(self, consumo):
+        ''' (BilleteraElectronica, Consumo) -> int 
+        
+        Disminuye el saldo por el monto del consumo.
+        
+        '''
+        
+        pinUsuario = int(input("Por favor ingrese su número PIN: "))
+        
+        if (self.pin != pinUsuario):
+            raise Exception("El número PIN proporcionado no coincide.")
+            
+        elif (self.saldo < consumo.monto):
+            raise Exception("Su saldo es insuficiente para realizar este consumo.")
+            
+        else:
+            self.saldo -= consumo.monto
+            self.fecha_ultMovimiento = consumo.fecha
         return self.saldo

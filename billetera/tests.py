@@ -30,6 +30,17 @@ class TestBilletera(unittest.TestCase):
         recarga = Recarga(65.4, 2015, 6, 4, "Comedor de Estudiantes")
         resp = b1.saldo + recarga.monto
         self.assertEqual(b1.recargar(recarga), resp)
+        
+    def testCrearConsumo(self):   
+        Consumos(22.4, 2015, 5, 5, "Comedor de Estudiantes") 
+        
+    def testRevisarConsumo(self):
+        b1 = BilleteraElectronica(11103, "Ana", "De Valery", 21014266, 23456)
+        recarga1 = Recarga(100, 2015, 5, 2, "Comedor de Mys")
+        b1.recargar(recarga1)
+        consumo = Consumos(34.9, 2015, 5, 4, "Comedor de Mys")
+        respuesta = b1.saldo - consumo.monto
+        self.assertEqual(b1.consumir(consumo), respuesta)
             
 
 
