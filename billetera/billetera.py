@@ -54,9 +54,7 @@ class BilleteraElectronica():
         Disminuye el saldo por el monto del consumo.
         
         '''
-        
-        pinUsuario = int(input("Por favor ingrese su número PIN: "))
-        
+        pinUsuario = int(input("Por favor ingrese su número PIN:"))
         if (self.pin != pinUsuario):
             raise Exception("El número PIN proporcionado no coincide.")
             
@@ -66,4 +64,5 @@ class BilleteraElectronica():
         else:
             self.saldo -= consumo.monto
             self.fecha_ultMovimiento = consumo.fecha
+            
         return self.saldo

@@ -58,12 +58,12 @@ class TestBilletera(unittest.TestCase):
         
     # Apellidos con dieresis
     def testApellidosDieresis(self):
-        BilleteraElectronica(37897,'Luisa','Ungüento',2133461,38917)
+        BilleteraElectronica(37897,'Luisa','Ungüento', 2133461, 38917)
     
     # Apellidos con guion
     def testApellidosGuion(self):
         BilleteraElectronica(42435,'morris','Iglesias-Monedero',4678039, 34213)
-            
+                    
 
 
 if __name__ == "__main__":
