@@ -7,7 +7,7 @@ Created on 6/5/2015
 '''
 import unittest
 from billetera import *
-from xmlrpc.client import MAXINT
+from xmlrpc.client import MAXINT, MININT
 
 class TestBilletera(unittest.TestCase):
 
@@ -129,7 +129,14 @@ class TestBilletera(unittest.TestCase):
         b1.recargar(recarga2)
         self.assertEqual(b1.saldo, MAXINT)
 
-        
+    def testMinimoConsumo(self):
+        b1 = BilleteraElectronica(9876, 'Maria', 'Román', 20287352, 2760)
+        recarga2 = Recarga(10, 2015, 2, 28, 'Taquilla Virtual')
+        b1.recargar(recarga2)
+        consumo = Consumos(1, 2015, 2, 21, 'Mathieu Spa')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo,2760)
+        self.assertEqual(b1.saldo, resp)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
