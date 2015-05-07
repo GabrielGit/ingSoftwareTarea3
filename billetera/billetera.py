@@ -44,19 +44,25 @@ class BilleteraElectronica():
         
         '''
         
+        if (recarga.monto < 0.0):
+            raise Exception("No está permitido hacer recargas de montos negativos.")
+        
         self.saldo += recarga.monto
         self.fecha_ultMovimiento = recarga.fecha
         return self.saldo
     
-    def consumir(self, consumo):
-        ''' (BilleteraElectronica, Consumo) -> int 
+    def consumir(self, consumo, pinUsuario):
+        ''' (BilleteraElectronica, Consumo, int) -> int 
         
         Disminuye el saldo por el monto del consumo.
         
         '''
-        pinUsuario = int(input("Por favor ingrese su número PIN:"))
+
         if (self.pin != pinUsuario):
             raise Exception("El número PIN proporcionado no coincide.")
+        
+        elif (consumo.monto < 0.0):
+            raise Exception("No está permitido hacer consumos de montos negativos.")
             
         elif (self.saldo < consumo.monto):
             raise Exception("Su saldo es insuficiente para realizar este consumo.")

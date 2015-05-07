@@ -46,7 +46,7 @@ class TestBilletera(unittest.TestCase):
         b1.recargar(recarga1)
         consumo = Consumos(34.9, 2015, 5, 4, "Comedor de Mys")
         respuesta = b1.saldo - consumo.monto
-        self.assertEqual(b1.consumir(consumo), respuesta)
+        self.assertEqual(b1.consumir(consumo, 23456), respuesta)
         
     # Apellidos con Acentos
     def testApellidosAcentos(self):
@@ -63,7 +63,15 @@ class TestBilletera(unittest.TestCase):
     # Apellidos con guion
     def testApellidosGuion(self):
         BilleteraElectronica(42435,'morris','Iglesias-Monedero',4678039, 34213)
-                    
+        
+    # Prueba interior. Se prueban las funcionalidades de recarga, consumo, y saldo.    
+    def testSaldoCero(self):
+        b1 = BilleteraElectronica(9876, "Marisela", "Del Valle", 20287352, 2760)
+        recarga2 = Recarga(95.8, 2015, 2, 28, "Taquilla Virtual")
+        b1.recargar(recarga2)
+        consumo2 = Consumos(95.8, 2015, 3, 4, "Estacionamiento C.C. Metrocenter")
+        b1.consumir(consumo2, 2760)
+        self.assertEqual(b1.saldo, 0.0)                    
 
 
 if __name__ == "__main__":
