@@ -27,8 +27,17 @@ class BilleteraElectronica():
         self.pin = pin 
         self.saldo = 0.0
         
-        if not isinstance(ci,int):
+        if not isinstance(identificador,int):
+            raise Exception ('El identificador solo admite numeros')
+        
+        elif (self.identificador < 0):
+            raise Exception ('El identificador solo admite valores positivos')
+
+        elif not isinstance(ci,int):
             raise Exception ('La cedula solo admite valores numericos')
+        
+        elif (self.ci < 0):
+            raise Exception ('La cedula solo admite valores numericos positivos')
         
         elif (self.nombre == ''):
             raise Exception ('El nombre no puede ser un string vacio')
@@ -38,6 +47,9 @@ class BilleteraElectronica():
         
         elif not isinstance(pin,int):
             raise Exception ('El pin solo admite enteros')
+        
+        elif (self.pin < 0):
+            raise Exception ('El pin solo admite valores numericos positivos')
         
     def consultarSaldo(self):
         ''' (BilleteraElectronica) -> int
@@ -58,6 +70,10 @@ class BilleteraElectronica():
         if (recarga.monto < 0.0):
             raise Exception("No está permitido hacer recargas de montos negativos.")
         
+        elif not (isinstance(recarga.monto,float) or isinstance(recarga.monto,int)) :
+           raise Exception ('La recarga solo admite valores numericos')
+        
+        
         self.saldo += recarga.monto
         self.fecha_ultMovimiento = recarga.fecha
         return self.saldo
@@ -77,9 +93,14 @@ class BilleteraElectronica():
             
         elif (self.saldo < consumo.monto):
             raise Exception("Su saldo es insuficiente para realizar este consumo.")
+        
+        elif not (isinstance(consumo.monto,float)or isinstance(consumo.monto,int)) :
+            raise Exception('El consumo solo admite valores numericos')
             
         else:
             self.saldo -= consumo.monto
             self.fecha_ultMovimiento = consumo.fecha
             
         return self.saldo
+
+b1 = BilleteraElectronica(9876, 'Maria', 'Román', 20287352, 2760)
