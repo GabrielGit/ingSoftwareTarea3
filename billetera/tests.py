@@ -36,7 +36,7 @@ class TestBilletera(unittest.TestCase):
     #Prueba interior    
     def testRevisarRecarga(self):
         b1 = BilleteraElectronica(11223, "Pedro", "Rondon", 25674667, 54321)
-        recarga = Recarga(65.4, 2015, 6, 4, "Comedor de Estudiantes")
+        recarga = Recarga(65.4, 2015, 4, 4, "Comedor de Estudiantes")
         resp = b1.saldo + recarga.monto
         self.assertEqual(b1.recargar(recarga), resp)
         
@@ -113,35 +113,35 @@ class TestBilletera(unittest.TestCase):
     # Prueba interior
     def testRecargaNegativa(self):
         b1 = BilleteraElectronica(1579, 'Oscar', 'Guillen', 21444449, 1234)
-        recarga3 = Recarga(-10, 2015, 5, 8, 'Taquilla Virtual')
+        recarga3 = Recarga(-10, 2015, 5, 3, 'Taquilla Virtual')
         self.assertRaises(Exception, b1.recargar,recarga3)
         
     # Prueba interior
     def testConsumoNegativo(self):
         b1 = BilleteraElectronica(1579, 'Oscar', 'Guillen', 21444449, 1234)
-        consumo3 = Consumos(-10, 2015, 5, 8, 'Taquilla Virtual')
+        consumo3 = Consumos(-10, 2015, 5, 2, 'Taquilla Virtual')
         self.assertRaises(Exception, b1.consumir,consumo3,1234)
 
     # Prueba interior
     def testConsumoNoEntera(self):
         b1 = BilleteraElectronica(1579, 'Oscar', 'Guillen', 21444449, 1234)
-        consumo3 = Consumos('a', 2015, 5, 8, 'Taquilla Virtual')
+        consumo3 = Consumos('a', 2015, 5, 3, 'Taquilla Virtual')
         self.assertRaises(Exception, b1.consumir,consumo3,1234)    
     
     # Prueba interior
     def testSaldoInsuficiente(self):
         b1 = BilleteraElectronica(1579, 'Fabio', 'Castro', 22324987, 2345)
-        recarga4 = Recarga(20.0, 2015, 5, 8, 'Taquilla Virtual')
+        recarga4 = Recarga(20.0, 2015, 5, 6, 'Taquilla Virtual')
         b1.recargar(recarga4)
-        consumo4 = Consumos(21,2015,5,9,'Subway')
+        consumo4 = Consumos(21,2015,5,7,'Subway')
         self.assertRaises(Exception, b1.consumir,consumo4,2345)
     
     # Prueba interior
     def testPinErroneo(self):
         b1 = BilleteraElectronica(1579, 'Carlos', 'Da Silva', 20642576, 7768)
-        recarga5 = Recarga(30.0, 2015, 5, 8, 'Taquilla Virtual')
+        recarga5 = Recarga(30.0, 2015, 5, 5, 'Taquilla Virtual')
         b1.recargar(recarga5)
-        consumo5 = Consumos(21,2015,5,9,'Subway')
+        consumo5 = Consumos(21,2015,5,5,'Subway')
         self.assertRaises(Exception, b1.consumir,consumo5,2345)  
 
     # Enriqueciendo la suite de pruebas
@@ -253,7 +253,16 @@ class TestBilletera(unittest.TestCase):
         consumo = Consumos(0, 2015, 3, 4, 'Litoral')
         resp = b1.saldo - consumo.monto
         b1.consumir(consumo, 2897)
-        self.assertEqual(b1.saldo, resp)    
+        self.assertEqual(b1.saldo, resp)  
+        
+    #Prueba Malicia
+    def testParametrosErroneos(self):
+        self.assertRaises(Exception, BilleteraElectronica,'ok987', '', '', '23456789', -2897)
+        
+    #Prueba Malicia
+    def testParametrosErroneos2(self):
+        self.assertRaises(Exception, BilleteraElectronica,'ok987', '', '', '23456789', '-2897')
+
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
