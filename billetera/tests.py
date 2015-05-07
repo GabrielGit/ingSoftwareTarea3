@@ -79,6 +79,14 @@ class TestBilletera(unittest.TestCase):
         self.assertEqual(b1.saldo, 0.0)
         
     # Prueba interior
+    def testIDInvalida(self):
+        self.assertRaises(Exception, BilleteraElectronica, 'as123','Juan','Carpio', 21234, 23456)
+        
+    # Prueba interior
+    def testIDNegativo(self):
+        self.assertRaises(Exception, BilleteraElectronica, -987,'Carlos','Rodriguez', 12234, 23456)
+
+    # Prueba interior
     def testCedulaInvalida(self):
         self.assertRaises(Exception, BilleteraElectronica, 123,'Susana','Roma', '1234', 23456)
     
@@ -207,10 +215,45 @@ class TestBilletera(unittest.TestCase):
         b1.recargar(recarga)
         self.assertEqual(b1.saldo, sys.float_info.min)
         
+    #Prueba Esquina
+    def testRecargaMaxDecimalConMinConsumoDecimal(self):
+        b1 = BilleteraElectronica(9565, 'Jose', 'Duarte', 23456789, 2897)
+        recarga = Recarga(sys.float_info.max, 2015, 2, 6, 'La Salle') 
+        b1.recargar(recarga)
+        consumo = Consumos(0.00000001, 2015, 3, 4, 'Litoral')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 2897)
+        self.assertEqual(b1.saldo, resp)
         
+    #Prueba Esquina
+    def testRecargaMaxConMinConsumo(self):
+        b1 = BilleteraElectronica(9565, 'Soyla', 'Mesa', 23456789, 2897)
+        recarga = Recarga(MAXINT, 2015, 2, 6, 'Loyola') 
+        b1.recargar(recarga)
+        consumo = Consumos(0, 2015, 3, 4, 'Mercantil')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 2897)
+        self.assertEqual(b1.saldo, resp)
         
+    #Prueba Esquina
+    def testRecargaMinDecimalConMaxConsumoDecimal(self):
+        b1 = BilleteraElectronica(9565, 'Jose', 'Hermino', 23456789, 2897)
+        recarga = Recarga(0.0000000001, 2015, 2, 6, 'USB') 
+        b1.recargar(recarga)
+        consumo = Consumos(0.00000000009, 2015, 3, 4, 'DACE')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 2897)
+        self.assertEqual(b1.saldo, resp)
         
-    
+    #Prueba Esquina
+    def testRecargaMinConMaxConsumo(self):
+        b1 = BilleteraElectronica(9565, 'Deborah', 'Hartman', 23456789, 2897)
+        recarga = Recarga(0, 2015, 2, 6, 'La Salle') 
+        b1.recargar(recarga)
+        consumo = Consumos(0, 2015, 3, 4, 'Litoral')
+        resp = b1.saldo - consumo.monto
+        b1.consumir(consumo, 2897)
+        self.assertEqual(b1.saldo, resp)    
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

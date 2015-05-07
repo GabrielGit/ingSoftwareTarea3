@@ -27,7 +27,13 @@ class BilleteraElectronica():
         self.pin = pin 
         self.saldo = 0.0
         
-        if not isinstance(ci,int):
+        if not isinstance(identificador,int):
+            raise Exception ('El identificador solo admite numeros')
+        
+        elif (self.identificador < 0):
+            raise Exception ('El identificador solo admite valores positivos')
+
+        elif not isinstance(ci,int):
             raise Exception ('La cedula solo admite valores numericos')
         
         elif (self.ci < 0):
